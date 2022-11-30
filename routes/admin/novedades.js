@@ -10,36 +10,36 @@ const destroy = util.promisify(cloudinary.uploader.destroy);
 router.get("/", async function (req, res, next) {
   var novedades = await novedadesModel.getNovedades();
 
-  novedades = novedades.map((novedad) => {
+  novedades = novedades.map(novedad => {
     if (novedad.img_id) {
       const imagen = cloudinary.image(novedad.img_id, {
         width: 100,
         height: 100,
-        crop: "fill",
+        crop: "fill"
       });
       return {
         ...novedad,
-        imagen,
+        imagen
       };
     } else {
       return {
         ...novedad,
-        imagen: "",
+        imagen: ""
       };
     }
   });
 
   res.render("admin/novedades", {
     layout: "admin/layout",
-    usuario: req.session.nombre,
-    novedades,
+    persona: req.session.nombre,
+    novedades
   });
 });
 
 // diseño de agregar
 router.get("/agregar", (req, res, next) => {
   res.render("admin/agregar", {
-    layout: "admin/layout",
+    layout: "admin/layout"
   });
 });
 
@@ -53,21 +53,17 @@ router.post("/agregar", async (req, res, next) => {
       img_id = (await uploader(imagen.tempFilePath)).public_id;
     }
 
-    if (
-      req.body.titulo != "" &&
-      req.body.subtitulo != "" &&
-      req.body.descripcion != ""
-    ) {
+    if (req.body.titulo != "" && req.body.subtitulo != "" && req.body.descripcion != "") {
       await novedadesModel.insertNovedades({
         ...req.body,
-        img_id,
+        img_id
       });
       res.redirect("/admin/novedades");
     } else {
       res.render("admin/agregar", {
         layout: "admin/layout",
         error: true,
-        message: "Todos los campos son requeridos",
+        message: "Todos los campos son requeridos"
       });
     }
   } catch (error) {
@@ -75,7 +71,7 @@ router.post("/agregar", async (req, res, next) => {
     res.render("admin/agregar", {
       layout: "admin/layout",
       error: true,
-      message: "No se cargo la novedad",
+      message: "No se cargo la novedad"
     });
   }
 });
@@ -101,7 +97,7 @@ router.get("/modificar/:id", async (req, res, next) => {
 
   res.render("admin/modificar", {
     layout: "admin/layout",
-    novedad,
+    novedad
   });
 });
 
