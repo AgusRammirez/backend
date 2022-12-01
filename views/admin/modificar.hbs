@@ -10,10 +10,11 @@
                 </div>
                 <div class="mb-3 row">
                     <p>
-                        <label>Imagen: <input type="file" class="form-control" name="imagen" id="imagen"/></label>
+                        <label>Imagen: <input type="file" class="form-control" name="imagen" id="imagen" /></label>
                     </p>
                     <p>
-                        <label> <input type="checkbox" name="img_delete" id="img_delete" value="1">Eliminar imagen actual?</label>
+                        <label> <input type="checkbox" name="img_delete" id="img_delete" value="1">Eliminar imagen
+                            actual?</label>
                         <input type="hidden" name="img_original" value="{{novedad.img_id}}">
                     </p>
                 </div>
@@ -23,9 +24,12 @@
                 </div>
                 <div class="mb-3 row">
                     <label for="">Descripcion</label>
-                    <textarea name="descripcion" class="form-crontol" style="height: 500px;">{{novedad.descripcion}}</textarea>
+                    <textarea name="descripcion" class="form-crontol"
+                        style="height: 500px;">{{novedad.descripcion}}</textarea>
                 </div>
-                <button class="btn btn-outline-success" type="submit">Modificar</button>
+                <div class="d-grid gap-2 ">
+                    <button class="btn btn-outline-success" type="submit">Modificar</button>
+                </div>
             </form>
             {{#if error}}
             <p>{{message}}</p>
