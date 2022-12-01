@@ -31,10 +31,10 @@ router.get("/", async function (req, res, next) {
 
   res.render("admin/novedades", {
     layout: "admin/layout",
-    persona: req.session.nombre,
+    usuario: req.session.nombre,
     novedades
   });
-});
+}); 
 
 // diseño de agregar
 router.get("/agregar", (req, res, next) => {
@@ -59,6 +59,7 @@ router.post("/agregar", async (req, res, next) => {
         img_id
       });
       res.redirect("/admin/novedades");
+
     } else {
       res.render("admin/agregar", {
         layout: "admin/layout",
@@ -66,6 +67,7 @@ router.post("/agregar", async (req, res, next) => {
         message: "Todos los campos son requeridos"
       });
     }
+
   } catch (error) {
     console.log(error);
     res.render("admin/agregar", {
@@ -131,6 +133,7 @@ router.post("/modificar", async (req, res, next) => {
 
     await novedadesModel.modificarNovedadesById(obj, req.body.id);
     res.redirect("/admin/novedades");
+    
   } catch (error) {
     console.log(error);
     res.render("admin/modificar", {
